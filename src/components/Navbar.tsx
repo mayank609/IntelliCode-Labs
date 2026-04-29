@@ -32,7 +32,7 @@ export default function Navbar() {
       <nav>
         <div className="nav-inner">
           <Link to="/" className="nav-logo">
-            Intelli<span>Code</span>Labs
+            <img src="/intellicode-logo-transparent.png" alt="Intellicode Labs logo" className="nav-logo-main" />
           </Link>
           <div className="nav-links">
             {navLinks.map(l => (

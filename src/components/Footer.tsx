@@ -30,7 +30,12 @@ export default function Footer() {
       <div className="footer-inner">
         <div className="footer-top">
           <div>
-            <div className="footer-brand-name">Intelli<span>Code</span>Labs</div>
+            <div className="footer-brand-name">
+              <img src="/intellicode-logo-transparent.png" alt="Intellicode Labs logo" className="footer-logo-main" />
+              <span className="brand-wordmark">
+                INTELLICODE <span className="brand-wordmark-accent">LABS</span>
+              </span>
+            </div>
             <div className="footer-brand-desc">
               An AI-first professional services firm building specialized systems for healthcare, logistics, and contact center engineering.
             </div>

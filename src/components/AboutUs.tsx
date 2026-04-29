@@ -26,7 +26,7 @@ export default function AboutUs() {
             </p>
             <div className="about-stats" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
               {stats.map(([v, l]) => (
-                <div key={l}>
+                <div key={l} className="stagger-item">
                   <div style={{ fontWeight: 800, fontSize: '2rem', letterSpacing: '-0.03em', color: 'var(--black)' }}>{v}</div>
                   <div style={{ fontSize: '0.8rem', color: 'var(--gray-1)', marginTop: 4 }}>{l}</div>
                 </div>
@@ -42,7 +42,7 @@ export default function AboutUs() {
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
               {domains.map(([t, d]) => (
-                <div key={t} style={{ background: 'var(--bg)', borderRadius: 14, padding: '18px', border: '1px solid rgba(0,0,0,0.05)' }}>
+                <div key={t} className="stagger-item" style={{ background: 'var(--bg)', borderRadius: 14, padding: '18px', border: '1px solid rgba(0,0,0,0.05)' }}>
                   <div style={{ fontWeight: 700, fontSize: '0.9rem', marginBottom: 6 }}>{t}</div>
                   <div style={{ fontSize: '0.78rem', color: 'var(--gray-1)', lineHeight: 1.5 }}>{d}</div>
                 </div>

@@ -38,7 +38,7 @@ export default function KeyFeatures() {
               {feats.map((f, i) => (
                 <div
                   key={f.title}
-                  className="feat-item"
+                  className="feat-item stagger-item"
                   style={{ opacity: active === i ? 1 : 0.4 }}
                   onClick={() => setActive(i)}
                 >

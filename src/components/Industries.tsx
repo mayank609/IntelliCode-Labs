@@ -56,7 +56,7 @@ export default function Industries() {
 
       <div className="industries-grid">
         {industries.map(ind => (
-          <div key={ind.tag} className={`ind-card ${ind.variant}`}>
+          <div key={ind.tag} className={`ind-card ${ind.variant} stagger-item`}>
             <div className="ind-tag">{ind.tag}</div>
             <div className="ind-title">{ind.title}</div>
             <div className="ind-desc">{ind.desc}</div>

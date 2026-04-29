@@ -1,4 +1,6 @@
 import Icon from './ui/Icon'
+import type { MouseEvent } from 'react'
+import SectionIntro from './ui/SectionIntro'
 
 interface HighlightCard {
   icon: 'testing' | 'agent' | 'prompt' | 'voice'
@@ -14,19 +16,45 @@ const cards: HighlightCard[] = [
 ]
 
 export default function Highlights() {
+  const handleTiltMove = (e: MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget
+    const rect = card.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    const rotateY = ((x / rect.width) - 0.5) * 10
+    const rotateX = (0.5 - (y / rect.height)) * 10
+
+    card.style.setProperty('--tilt-x', `${rotateX.toFixed(2)}deg`)
+    card.style.setProperty('--tilt-y', `${rotateY.toFixed(2)}deg`)
+    card.style.setProperty('--glow-x', `${(x / rect.width) * 100}%`)
+    card.style.setProperty('--glow-y', `${(y / rect.height) * 100}%`)
+  }
+
+  const resetTilt = (e: MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget
+    card.style.setProperty('--tilt-x', '0deg')
+    card.style.setProperty('--tilt-y', '0deg')
+    card.style.setProperty('--glow-x', '50%')
+    card.style.setProperty('--glow-y', '50%')
+  }
+
   return (
     <div style={{ background: 'var(--bg)' }} id="products">
       <div className="section">
-        <span className="section-label">Product Lines</span>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 20 }}>
-          <h2 className="section-title">Quick<br />Highlights</h2>
-          <p className="section-sub" style={{ margin: 0 }}>
-            Step into a world of AI-driven solutions built to make every enterprise operation smarter and stronger.
-          </p>
-        </div>
+        <SectionIntro
+          label="Product Lines"
+          title={<>Quick<br />Highlights</>}
+          subtitle="Step into a world of AI-driven solutions built to make every enterprise operation smarter and stronger."
+        />
         <div className="highlights-grid">
           {cards.map((c) => (
-            <div key={c.title} className="hl-card">
+            <div
+              key={c.title}
+              className="hl-card tilt-card stagger-item"
+              onMouseMove={handleTiltMove}
+              onMouseLeave={resetTilt}
+            >
+              <div className="hl-card-diffusion" aria-hidden="true" />
               <div className="hl-icon">
                 <Icon name={c.icon} size={22} stroke="oklch(0.48 0.14 232)" />
               </div>

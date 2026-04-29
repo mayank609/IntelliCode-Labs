@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useRef } from 'react'
+import SectionIntro from './ui/SectionIntro'
 
 interface Testimonial {
   quote: string
@@ -38,22 +40,29 @@ const testimonials: Testimonial[] = [
 
 export default function Testimonials() {
   const [active, setActive] = useState(0)
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  const scrollToCard = (index: number) => {
+    setActive(index)
+    const wrap = scrollRef.current
+    if (!wrap) return
+    const card = wrap.querySelectorAll<HTMLElement>('.testi-card')[index]
+    card?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+  }
 
   return (
     <div style={{ background: 'var(--bg)' }}>
       <div className="section">
-        <span className="section-label">Client Success Stories</span>
-        <div className="testi-section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 20, marginBottom: 64 }}>
-          <h2 className="section-title">Real Results,<br />Real Enterprises.</h2>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 16 }}>
-            <p className="section-sub" style={{ margin: 0 }}>
-              From health plans to logistics — companies trust us with their most critical AI workflows.
-            </p>
+        <SectionIntro
+          label="Client Success Stories"
+          title={<>Real Results,<br />Real Enterprises.</>}
+          subtitle="From health plans to logistics - companies trust us with their most critical AI workflows."
+          actions={
             <div style={{ display: 'flex', gap: 8 }}>
               {testimonials.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setActive(i)}
+                  onClick={() => scrollToCard(i)}
                   className="testi-dot"
                   style={{
                     width: i === active ? 28 : 8,
@@ -62,19 +71,19 @@ export default function Testimonials() {
                 />
               ))}
             </div>
-          </div>
-        </div>
+          }
+        />
 
-        <div className="testimonials-wrap">
+        <div className="testimonials-wrap horizontal-scroll" ref={scrollRef}>
           {testimonials.map((t, i) => (
             <div
               key={i}
-              className={`testi-card${t.featured ? ' featured' : ''}`}
+              className={`testi-card stagger-item${t.featured ? ' featured' : ''}`}
               style={{
                 outline: i === active ? '2px solid var(--accent)' : '2px solid transparent',
                 outlineOffset: 2,
               }}
-              onClick={() => setActive(i)}
+              onClick={() => scrollToCard(i)}
             >
               <div className="testi-stars">
                 {[1, 2, 3, 4, 5].map(s => (

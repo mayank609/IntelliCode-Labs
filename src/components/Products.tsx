@@ -50,7 +50,7 @@ export default function Products() {
         </div>
         <div className="products-grid">
           {products.map((p) => (
-            <div key={p.title} className="prod-card">
+            <div key={p.title} className="prod-card stagger-item">
               <div><span className="prod-badge">{p.badge}</span></div>
               <div className="prod-title">{p.title}</div>
               <div className="prod-desc">{p.desc}</div>

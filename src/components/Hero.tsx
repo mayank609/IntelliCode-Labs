@@ -1,4 +1,5 @@
 import Sparkline from './ui/Sparkline'
+import FloatingOrbs from './FloatingOrbs'
 
 const scrollTo = (id: string) => {
   const el = document.getElementById(id)
@@ -19,6 +20,7 @@ export default function Hero() {
       <div className="hero-blob hero-blob-1" />
       <div className="hero-blob hero-blob-2" />
       <div className="hero-blob hero-blob-3" />
+      <FloatingOrbs density="high" colors={['blue', 'teal', 'cyan']} />
 
       {/* Floating card — left */}
       <div className="float-card float-card-1 hero-float-left" style={{ top: '32%', left: '3%', width: 196 }}>

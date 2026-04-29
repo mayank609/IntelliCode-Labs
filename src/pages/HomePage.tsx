@@ -68,7 +68,7 @@ function CtaStrip() {
 export default function HomePage() {
   const navigate = useNavigate()
   return (
-    <>
+    <div className="home-page">
       <Hero />
       <Ticker />
       <Highlights />
@@ -185,6 +185,6 @@ export default function HomePage() {
 
       <Testimonials />
       <CtaStrip />
-    </>
+    </div>
   )
 }
