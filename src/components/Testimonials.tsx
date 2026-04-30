@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useRef } from 'react'
 import SectionIntro from './ui/SectionIntro'
+import Donut from './ui/Donut'
 
 interface Testimonial {
   quote: string
@@ -8,6 +9,8 @@ interface Testimonial {
   role: string
   initials: string
   featured?: boolean
+  metricValue?: number
+  metricLabel?: string
 }
 
 const testimonials: Testimonial[] = [
@@ -17,24 +20,32 @@ const testimonials: Testimonial[] = [
     role: 'VP Operations, Regional Health Plan',
     initials: 'JM',
     featured: true,
+    metricValue: 74,
+    metricLabel: 'Time Saved',
   },
   {
     quote: 'Their AI testing platform caught a critical regression in our claims model before it hit production. The ROI on that alone paid for the entire engagement.',
     name: 'David Chen',
     role: 'CTO, InsureTech Startup',
     initials: 'DC',
+    metricValue: 85,
+    metricLabel: 'Accuracy',
   },
   {
     quote: 'VoicePilot replaced our legacy IVR completely. Customer satisfaction scores are up 22 points and our agents handle 40% fewer routine calls.',
     name: 'Maria Santos',
     role: 'Director of CX, Logistics Co.',
     initials: 'MS',
+    metricValue: 40,
+    metricLabel: 'Call Reduction',
   },
   {
     quote: "The PromptOps suite is the missing layer we needed. Prompt management was chaos before — now it's treated like production code. Finally.",
     name: 'Alex Kim',
     role: 'Head of AI, Insurance Group',
     initials: 'AK',
+    metricValue: 68,
+    metricLabel: 'Cost Saved',
   },
 ]
 
@@ -78,7 +89,7 @@ export default function Testimonials() {
           {testimonials.map((t, i) => (
             <div
               key={i}
-              className={`testi-card stagger-item${t.featured ? ' featured' : ''}`}
+              className={`testi-card reveal-on-scroll reveal-left reveal-delay-${(i + 1) * 100}${t.featured ? ' featured' : ''}`}
               style={{
                 outline: i === active ? '2px solid var(--accent)' : '2px solid transparent',
                 outlineOffset: 2,
@@ -91,8 +102,29 @@ export default function Testimonials() {
                 ))}
               </div>
               <div className="testi-quote">"{t.quote}"</div>
+              
+              {t.metricValue && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 16, margin: '16px 0', paddingTop: 12, borderTop: '1px solid rgba(0,0,0,0.08)' }}>
+                  <div>
+                    <div style={{ fontSize: '0.7rem', color: '#999', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                      {t.metricLabel}
+                    </div>
+                    <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--accent)', marginTop: 4 }}>
+                      {t.metricValue}%
+                    </div>
+                  </div>
+                  <Donut 
+                    data={[
+                      { v: t.metricValue, color: 'var(--accent)' },
+                      { v: 100 - t.metricValue, color: '#e0e0e8' },
+                    ]} 
+                    size={70} 
+                  />
+                </div>
+              )}
+              
               <div className="testi-author">
-                <div className="testi-avatar">{t.initials}</div>
+                <div className="testi-avatar animate-float">{t.initials}</div>
                 <div>
                   <div className="testi-name">{t.name}</div>
                   <div className="testi-role">{t.role}</div>

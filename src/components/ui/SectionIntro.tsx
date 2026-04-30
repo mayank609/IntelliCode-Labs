@@ -10,7 +10,7 @@ interface SectionIntroProps {
 
 export default function SectionIntro({ label, title, subtitle, align = 'between', actions }: SectionIntroProps) {
   return (
-    <div className={`section-intro ${align === 'left' ? 'left' : 'between'}`}>
+    <div className={`section-intro ${align === 'left' ? 'left' : 'between'} reveal-on-scroll`}>
       <div className="section-intro-main">
         <span className="section-label">{label}</span>
         <h2 className="section-title">{title}</h2>

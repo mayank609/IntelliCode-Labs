@@ -26,10 +26,20 @@ const scrollTo = (id: string) => {
 
 export default function Footer() {
   return (
-    <footer>
-      <div className="footer-inner">
-        <div className="footer-top">
-          <div>
+    <footer style={{ position: 'relative' }}>
+      <div style={{
+        position: 'absolute', top: 0, left: 0, right: 0, height: '4px',
+        background: 'linear-gradient(90deg, #48b7ff, #8d5eff, #53d3b5)',
+        opacity: 0.8
+      }} />
+      <div className="footer-inner" style={{ position: 'relative', zIndex: 1 }}>
+        <div className="footer-top" style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+          gap: '48px',
+          paddingTop: '32px'
+        }}>
+          <div style={{ gridColumn: '1 / -1', maxWidth: '400px', marginBottom: '16px' }}>
             <div className="footer-brand-name">
               <img src="/intellicode-logo-transparent.png" alt="Intellicode Labs logo" className="footer-logo-main" />
               <span className="brand-wordmark">
@@ -58,8 +68,8 @@ export default function Footer() {
             </div>
           </div>
 
-          {footerCols.map(col => (
-            <div key={col.title}>
+          {footerCols.map((col, i) => (
+            <div key={col.title} className={`reveal-on-scroll reveal-delay-${(i + 1) * 100}`}>
               <div className="footer-col-title">{col.title}</div>
               <div className="footer-links">
                 {col.links.map(l => (

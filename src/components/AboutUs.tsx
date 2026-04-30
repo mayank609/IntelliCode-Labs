@@ -1,3 +1,6 @@
+import FloatingOrbs from './FloatingOrbs'
+import FloatingImages from './FloatingImages'
+
 export default function AboutUs() {
   const stats = [
     ['50+', 'Enterprise Deployments'],
@@ -11,9 +14,20 @@ export default function AboutUs() {
     ['Voice AI', 'Sub-200ms latency'],
     ['Testing', 'Zero-drift pipelines'],
   ]
+  
+  const floatingImages = [
+    'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=300&q=80',
+    'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=300&q=80',
+    'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300&q=80',
+    'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=300&q=80',
+    'https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=300&q=80'
+  ]
+
   return (
     <div className="section-outer" id="about-us">
-      <div className="section">
+      <FloatingOrbs density="low" colors={['purple', 'cyan']} />
+      <FloatingImages images={floatingImages} count={5} opacity={0.15} />
+      <div className="section" style={{ position: 'relative', zIndex: 1 }}>
         <span className="section-label">About Us</span>
         <div className="about-split" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
           <div>

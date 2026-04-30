@@ -4,6 +4,8 @@ import Ticker from '../components/Ticker'
 import Highlights from '../components/Highlights'
 import Testimonials from '../components/Testimonials'
 import Sparkline from '../components/ui/Sparkline'
+import TechMarquee from '../components/ui/TechMarquee'
+import AnimatedCounter from '../components/ui/AnimatedCounter'
 
 const products = [
   {
@@ -70,6 +72,7 @@ export default function HomePage() {
   return (
     <div className="home-page">
       <Hero />
+      <TechMarquee />
       <Ticker />
       <Highlights />
 
@@ -95,8 +98,8 @@ export default function HomePage() {
             </button>
           </div>
           <div className="products-grid" style={{ marginTop: 48 }}>
-            {products.map(p => (
-              <div key={p.title} className="prod-card">
+            {products.map((p, i) => (
+              <div key={p.title} className={`prod-card shine-effect reveal-on-scroll reveal-delay-${(i + 1) * 100}`}>
                 <div><span className="prod-badge">{p.badge}</span></div>
                 <div className="prod-title">{p.title}</div>
                 <div className="prod-desc">{p.desc}</div>
@@ -143,10 +146,10 @@ export default function HomePage() {
               { variant: 'dark', tag: 'Healthcare Insurance', title: 'Claims & Prior Auth', desc: 'HIPAA-compliant AI agents that automate prior authorization and claims triage.', bgWord: 'HEALTH', metric: '74%', metricLabel: 'Less manual review' },
               { variant: 'light', tag: 'Logistics', title: 'Routing & Dispatch AI', desc: 'Predictive ETA systems and intelligent dispatch agents that cut ops costs.', bgWord: 'SHIP', metric: '60%', metricLabel: 'Reduced overhead' },
               { variant: 'accent', tag: 'Contact Center', title: 'Voice & IVR Modernization', desc: 'Replace legacy IVR with real-time voice AI, agent assist, and call analytics.', bgWord: 'TALK', metric: '40%', metricLabel: 'Fewer routine calls' },
-            ].map(ind => (
+            ].map((ind, i) => (
               <div
                 key={ind.tag}
-                className={`ind-card ${ind.variant}`}
+                className={`ind-card ${ind.variant} shine-effect reveal-on-scroll reveal-delay-${(i + 1) * 100}`}
                 onClick={() => navigate('/industries')}
               >
                 <div className="ind-tag">{ind.tag}</div>
@@ -168,12 +171,12 @@ export default function HomePage() {
         <div className="section" style={{ paddingTop: 80, paddingBottom: 80 }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 2, background: 'var(--gray-2)', borderRadius: 20, overflow: 'hidden' }}>
             {[
-              { val: '50+', label: 'Enterprise Deployments', spark: [10,14,12,18,15,20,17,22,19,24,25] },
-              { val: '99.4%', label: 'System Uptime SLA', spark: [42,44,43,45,44,46,45,47,46,48,47] },
-              { val: '<200ms', label: 'Voice AI Latency', spark: [30,28,26,24,22,21,20,19,18,17,16] },
-              { val: '3×', label: 'Avg. Throughput Improvement', spark: [10,15,20,25,22,28,24,30,26,32,30] },
-            ].map(item => (
-              <div key={item.label} style={{ background: 'var(--white)', padding: '36px 32px' }}>
+              { val: <AnimatedCounter value={50} suffix="+" />, label: 'Enterprise Deployments', spark: [10,14,12,18,15,20,17,22,19,24,25] },
+              { val: <AnimatedCounter value={99.4} decimals={1} suffix="%" />, label: 'System Uptime SLA', spark: [42,44,43,45,44,46,45,47,46,48,47] },
+              { val: <AnimatedCounter value={200} prefix="<" suffix="ms" />, label: 'Voice AI Latency', spark: [30,28,26,24,22,21,20,19,18,17,16] },
+              { val: <AnimatedCounter value={3} suffix="×" />, label: 'Avg. Throughput Improvement', spark: [10,15,20,25,22,28,24,30,26,32,30] },
+            ].map((item, i) => (
+              <div key={item.label} className={`reveal-on-scroll reveal-delay-${(i + 1) * 100}`} style={{ background: 'var(--white)', padding: '36px 32px' }}>
                 <div style={{ fontWeight: 800, fontSize: '2.2rem', letterSpacing: '-0.04em', color: 'var(--black)', lineHeight: 1, marginBottom: 6 }}>{item.val}</div>
                 <div style={{ fontSize: '0.8rem', color: 'var(--gray-1)', marginBottom: 16 }}>{item.label}</div>
                 <Sparkline color="oklch(0.48 0.14 232)" data={item.spark} height={36} />

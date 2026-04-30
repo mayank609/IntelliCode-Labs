@@ -1,3 +1,6 @@
+import Donut from './ui/Donut'
+import FloatingOrbs from './FloatingOrbs'
+
 interface IndustryCard {
   variant: 'dark' | 'light' | 'accent'
   tag: string
@@ -6,6 +9,7 @@ interface IndustryCard {
   bgWord: string
   metric: string
   metricLabel: string
+  donutData?: Array<{ v: number; color: string }>
 }
 
 const industries: IndustryCard[] = [
@@ -17,6 +21,10 @@ const industries: IndustryCard[] = [
     bgWord: 'HEALTH',
     metric: '74%',
     metricLabel: 'Reduction in manual review time',
+    donutData: [
+      { v: 74, color: '#4a6cf7' },
+      { v: 26, color: '#e0e0e8' },
+    ],
   },
   {
     variant: 'light',
@@ -26,6 +34,10 @@ const industries: IndustryCard[] = [
     bgWord: 'SHIP',
     metric: '60%',
     metricLabel: 'Reduction in ops overhead',
+    donutData: [
+      { v: 60, color: '#52b89a' },
+      { v: 40, color: '#e0e0e8' },
+    ],
   },
   {
     variant: 'accent',
@@ -35,6 +47,10 @@ const industries: IndustryCard[] = [
     bgWord: 'TALK',
     metric: '40%',
     metricLabel: 'Fewer routine agent calls',
+    donutData: [
+      { v: 40, color: '#48b7ff' },
+      { v: 60, color: '#e0e0e8' },
+    ],
   },
 ]
 
@@ -45,7 +61,9 @@ const scrollTo = (id: string) => {
 
 export default function Industries() {
   return (
-    <div className="section" id="how-we-help">
+    <div className="section-outer" style={{ position: 'relative' }}>
+      <FloatingOrbs density="low" colors={['teal', 'blue']} />
+      <div className="section" id="how-we-help" style={{ position: 'relative', zIndex: 1 }}>
       <span className="section-label">Industries We Serve</span>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 20 }}>
         <h2 className="section-title">Built For<br />Your Domain</h2>
@@ -55,18 +73,25 @@ export default function Industries() {
       </div>
 
       <div className="industries-grid">
-        {industries.map(ind => (
-          <div key={ind.tag} className={`ind-card ${ind.variant} stagger-item`}>
+        {industries.map((ind, index) => (
+          <div key={ind.tag} className={`ind-card ${ind.variant} reveal-on-scroll reveal-delay-${(index + 1) * 100}`}>
             <div className="ind-tag">{ind.tag}</div>
             <div className="ind-title">{ind.title}</div>
             <div className="ind-desc">{ind.desc}</div>
 
-            {/* Metric callout */}
-            <div style={{ marginTop: 24, paddingTop: 20, borderTop: ind.variant === 'light' ? '1px solid rgba(0,0,0,0.07)' : '1px solid rgba(255,255,255,0.12)' }}>
-              <div style={{ fontWeight: 800, fontSize: '1.8rem', letterSpacing: '-0.04em', lineHeight: 1 }}>
-                {ind.metric}
+            {/* Metric callout with Donut */}
+            <div style={{ marginTop: 24, paddingTop: 20, borderTop: ind.variant === 'light' ? '1px solid rgba(0,0,0,0.07)' : '1px solid rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20 }}>
+              <div>
+                <div style={{ fontWeight: 800, fontSize: '1.8rem', letterSpacing: '-0.04em', lineHeight: 1 }}>
+                  {ind.metric}
+                </div>
+                <div style={{ fontSize: '0.75rem', marginTop: 4, opacity: 0.6 }}>{ind.metricLabel}</div>
               </div>
-              <div style={{ fontSize: '0.75rem', marginTop: 4, opacity: 0.6 }}>{ind.metricLabel}</div>
+              {ind.donutData && (
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Donut data={ind.donutData} size={100} />
+                </div>
+              )}
             </div>
 
             <button className="ind-cta-btn" onClick={() => scrollTo('contact')}>
@@ -81,5 +106,7 @@ export default function Industries() {
         ))}
       </div>
     </div>
+    </div>
   )
 }
+

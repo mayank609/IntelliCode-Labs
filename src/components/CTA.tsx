@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import FloatingOrbs from './FloatingOrbs'
 
 const scrollTo = (id: string) => {
   const el = document.getElementById(id)
@@ -88,7 +89,7 @@ export default function CTA() {
           <div className="contact-items">
             {contactItems.map(item => (
               <div key={item.title} className="contact-item">
-                <div className="contact-item-icon">{item.icon}</div>
+                <div className="contact-item-icon animate-float">{item.icon}</div>
                 <div>
                   <div className="contact-item-title">{item.title}</div>
                   <div className="contact-item-text" style={{ whiteSpace: 'pre-line' }}>{item.text}</div>
@@ -214,8 +215,12 @@ export default function CTA() {
         background: 'var(--black)', borderRadius: 24, padding: '64px 56px',
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         flexWrap: 'wrap', gap: 32,
+        position: 'relative', overflow: 'hidden'
       }}>
-        <div>
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
+          <FloatingOrbs density="low" colors={['blue', 'teal']} />
+        </div>
+        <div style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#555', marginBottom: 14 }}>
             Start Today
           </div>
@@ -223,7 +228,7 @@ export default function CTA() {
             The Future of Enterprise<br />AI Is Already Here.
           </div>
         </div>
-        <div className="cta-dark-strip-btns" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', flexShrink: 0 }}>
+        <div className="cta-dark-strip-btns" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', flexShrink: 0, position: 'relative', zIndex: 1 }}>
           <button
             onClick={() => scrollTo('contact')}
             style={{

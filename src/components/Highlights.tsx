@@ -47,15 +47,15 @@ export default function Highlights() {
           subtitle="Step into a world of AI-driven solutions built to make every enterprise operation smarter and stronger."
         />
         <div className="highlights-grid">
-          {cards.map((c) => (
+          {cards.map((c, index) => (
             <div
               key={c.title}
-              className="hl-card tilt-card stagger-item"
+              className={`hl-card tilt-card reveal-on-scroll reveal-delay-${(index + 1) * 100}`}
               onMouseMove={handleTiltMove}
               onMouseLeave={resetTilt}
             >
               <div className="hl-card-diffusion" aria-hidden="true" />
-              <div className="hl-icon">
+              <div className="hl-icon animate-float">
                 <Icon name={c.icon} size={22} stroke="oklch(0.48 0.14 232)" />
               </div>
               <div className="hl-title">{c.title}</div>

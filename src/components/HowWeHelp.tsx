@@ -1,3 +1,5 @@
+import Sparkline from './ui/Sparkline'
+
 interface Step {
   num: string
   title: string
@@ -7,6 +9,10 @@ interface Step {
 interface Benefit {
   title: string
   desc: string
+  metric?: string
+  metricLabel?: string
+  sparklineColor?: string
+  sparklineData?: number[]
 }
 
 const steps: Step[] = [
@@ -16,9 +22,30 @@ const steps: Step[] = [
 ]
 
 const benefits: Benefit[] = [
-  { title: 'Reduce Operational Costs', desc: 'Consolidate fragmented AI tools into a single platform. Cut vendor sprawl and reduce total cost of ownership by up to 60%.' },
-  { title: 'Save Time With Automation', desc: 'Automate repetitive decision-making tasks across claims, dispatch, and call queues — freeing your team for higher-value work.' },
-  { title: 'Easy To Implement', desc: 'Our integration-first approach means your team can adopt AI without a full re-architecture. We work with your current systems.' },
+  { 
+    title: 'Reduce Operational Costs', 
+    desc: 'Consolidate fragmented AI tools into a single platform. Cut vendor sprawl and reduce total cost of ownership by up to 60%.',
+    metric: '60%',
+    metricLabel: 'Cost Reduction',
+    sparklineColor: '#4a6cf7',
+    sparklineData: [20, 35, 28, 45, 38, 52, 44, 60, 55, 70, 74],
+  },
+  { 
+    title: 'Save Time With Automation', 
+    desc: 'Automate repetitive decision-making tasks across claims, dispatch, and call queues — freeing your team for higher-value work.',
+    metric: '40%',
+    metricLabel: 'Time Saved',
+    sparklineColor: '#52b89a',
+    sparklineData: [15, 28, 22, 38, 32, 48, 42, 55, 50, 65, 72],
+  },
+  { 
+    title: 'Easy To Implement', 
+    desc: 'Our integration-first approach means your team can adopt AI without a full re-architecture. We work with your current systems.',
+    metric: '2 Weeks',
+    metricLabel: 'Implementation',
+    sparklineColor: '#f5a623',
+    sparklineData: [10, 25, 18, 35, 28, 42, 35, 50, 45, 60, 68],
+  },
 ]
 
 export default function HowWeHelp() {
@@ -41,14 +68,33 @@ export default function HowWeHelp() {
 
       <div style={{ marginTop: 80, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
         {benefits.map((b, i) => (
-          <div key={i} style={{ background: 'var(--white)', borderRadius: 20, padding: '36px 32px', boxShadow: 'var(--shadow-card)', border: '1px solid rgba(0,0,0,0.04)' }}>
+          <div key={i} style={{ background: 'var(--white)', borderRadius: 20, padding: '36px 32px', boxShadow: 'var(--shadow-card)', border: '1px solid rgba(0,0,0,0.04)', display: 'flex', flexDirection: 'column' }}>
             <div style={{ width: 36, height: 36, borderRadius: 10, background: 'var(--accent-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 18 }}>
               <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#4a6cf7" strokeWidth="2">
                 <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
             <div style={{ fontWeight: 700, fontSize: '1rem', marginBottom: 10 }}>{b.title}</div>
-            <div style={{ fontSize: '0.875rem', lineHeight: 1.7, color: '#666677' }}>{b.desc}</div>
+            <div style={{ fontSize: '0.875rem', lineHeight: 1.7, color: '#666677', marginBottom: 16 }}>{b.desc}</div>
+            
+            {b.metric && (
+              <>
+                <div style={{ marginTop: 'auto', paddingTop: 16, borderTop: '1px solid rgba(0,0,0,0.05)' }}>
+                  <div style={{ fontSize: '0.7rem', color: '#999', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 6 }}>
+                    {b.metricLabel}
+                  </div>
+                  <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--accent)', marginBottom: 12 }}>
+                    {b.metric}
+                  </div>
+                </div>
+                
+                {b.sparklineData && (
+                  <div style={{ height: 40, marginTop: 12 }}>
+                    <Sparkline color={b.sparklineColor} data={b.sparklineData} height={40} />
+                  </div>
+                )}
+              </>
+            )}
           </div>
         ))}
       </div>
