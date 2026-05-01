@@ -3,6 +3,7 @@ import PageHero from '../components/PageHero'
 import KeyFeatures from '../components/KeyFeatures'
 import HowWeHelp from '../components/HowWeHelp'
 import Icon from '../components/ui/Icon'
+import ARVRScene from '../components/ARVRScene'
 
 const services = [
   {
@@ -42,7 +43,8 @@ export default function ServicesPage() {
       />
 
       {/* Service cards */}
-      <div style={{ background: 'var(--bg)' }}>
+      <div className="section-outer" style={{ position: 'relative' }}>
+        <ARVRScene />
         <div className="section">
           <span className="section-label">Our Service Areas</span>
           <h2 className="section-title" style={{ marginBottom: 56 }}>Four Disciplines.<br />One Platform.</h2>
@@ -80,12 +82,14 @@ export default function ServicesPage() {
       <KeyFeatures />
 
       {/* How We Help process */}
-      <div style={{ background: 'var(--bg)' }}>
+      <div className="section-outer" style={{ position: 'relative' }}>
+        <ARVRScene />
         <HowWeHelp />
       </div>
 
       {/* Engagement types */}
-      <div className="section-outer">
+      <div className="section-outer" style={{ position: 'relative' }}>
+        <ARVRScene />
         <div className="section">
           <span className="section-label">Engagement Models</span>
           <h2 className="section-title" style={{ marginBottom: 56 }}>We Work The<br />Way You Need.</h2>
@@ -113,14 +117,15 @@ export default function ServicesPage() {
 
       {/* CTA */}
       <div style={{ padding: '0 40px 120px' }}>
-        <div className="cta-dark-strip" style={{ maxWidth: 1280, margin: '0 auto', background: 'var(--black)', borderRadius: 24, padding: '64px 56px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 32 }}>
-          <div>
+        <div className="cta-dark-strip" style={{ maxWidth: 1280, margin: '0 auto', background: 'var(--black)', borderRadius: 24, padding: '64px 56px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 32, position: 'relative', overflow: 'hidden' }}>
+          <ARVRScene />
+          <div style={{ position: 'relative', zIndex: 1 }}>
             <div style={{ fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#555', marginBottom: 14 }}>Start a Project</div>
             <div className="cta-dark-strip-title" style={{ fontWeight: 800, fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', letterSpacing: '-0.03em', color: 'white', lineHeight: 1.1 }}>
               Not sure which service<br />fits your problem?
             </div>
           </div>
-          <div className="cta-dark-strip-btns" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+          <div className="cta-dark-strip-btns" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', position: 'relative', zIndex: 1 }}>
             <button onClick={() => navigate('/contact')} style={{ background: 'white', color: 'var(--black)', border: 'none', fontFamily: 'var(--font)', fontSize: '0.95rem', fontWeight: 700, padding: '14px 32px', borderRadius: 100, cursor: 'pointer' }}>
               Let's Talk
             </button>

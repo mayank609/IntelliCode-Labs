@@ -1,4 +1,5 @@
 import Icon from './ui/Icon'
+import { motion } from 'framer-motion'
 
 const footerCols = [
   {
@@ -39,7 +40,13 @@ export default function Footer() {
           gap: '48px',
           paddingTop: '32px'
         }}>
-          <div style={{ gridColumn: '1 / -1', maxWidth: '400px', marginBottom: '16px' }}>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            style={{ gridColumn: '1 / -1', maxWidth: '400px', marginBottom: '16px' }}
+          >
             <div className="footer-brand-name">
               <img src="/intellicode-logo-transparent.png" alt="Intellicode Labs logo" className="footer-logo-main" />
               <span className="brand-wordmark">
@@ -66,10 +73,16 @@ export default function Footer() {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {footerCols.map((col, i) => (
-            <div key={col.title} className={`reveal-on-scroll reveal-delay-${(i + 1) * 100}`}>
+            <motion.div 
+              key={col.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+            >
               <div className="footer-col-title">{col.title}</div>
               <div className="footer-links">
                 {col.links.map(l => (
@@ -82,11 +95,17 @@ export default function Footer() {
                   </a>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        <div className="footer-bottom">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="footer-bottom"
+        >
           <div className="footer-copy">© 2026 IntelliCodeLabs. All Rights Reserved.</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
             <div className="footer-legal">
@@ -95,7 +114,7 @@ export default function Footer() {
               <a href="#">Security</a>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
       <div className="footer-watermark">INTELLI</div>
     </footer>

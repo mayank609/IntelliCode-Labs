@@ -6,6 +6,7 @@ import Testimonials from '../components/Testimonials'
 import Sparkline from '../components/ui/Sparkline'
 import TechMarquee from '../components/ui/TechMarquee'
 import AnimatedCounter from '../components/ui/AnimatedCounter'
+import ARVRScene from '../components/ARVRScene'
 
 const products = [
   {
@@ -74,10 +75,14 @@ export default function HomePage() {
       <Hero />
       <TechMarquee />
       <Ticker />
-      <Highlights />
+      <div className="section-outer" style={{ position: 'relative' }}>
+        <ARVRScene />
+        <Highlights />
+      </div>
 
       {/* Products preview */}
-      <div className="section-outer">
+      <div className="section-outer" style={{ position: 'relative' }}>
+        <ARVRScene />
         <div className="section">
           <span className="section-label">Our Products</span>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 20 }}>
@@ -122,7 +127,8 @@ export default function HomePage() {
       </div>
 
       {/* Industries teaser */}
-      <div style={{ background: 'var(--bg)' }}>
+      <div className="section-outer" style={{ position: 'relative' }}>
+        <ARVRScene />
         <div className="section">
           <span className="section-label">Industries We Serve</span>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 20, marginBottom: 48 }}>
@@ -168,6 +174,7 @@ export default function HomePage() {
 
       {/* Key metrics strip */}
       <div className="section-outer">
+        <ARVRScene />
         <div className="section" style={{ paddingTop: 80, paddingBottom: 80 }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 2, background: 'var(--gray-2)', borderRadius: 20, overflow: 'hidden' }}>
             {[
@@ -186,7 +193,10 @@ export default function HomePage() {
         </div>
       </div>
 
-      <Testimonials />
+      <div className="section-outer" style={{ position: 'relative' }}>
+        <ARVRScene />
+        <Testimonials />
+      </div>
       <CtaStrip />
     </div>
   )

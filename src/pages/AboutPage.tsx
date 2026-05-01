@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import PageHero from '../components/PageHero'
 import Icon from '../components/ui/Icon'
+import ARVRScene from '../components/ARVRScene'
 
 const stats = [
   { val: '50+', label: 'Enterprise Deployments', sub: 'Across healthcare, logistics, and contact centers' },
@@ -56,7 +57,8 @@ export default function AboutPage() {
       />
 
       {/* Mission + Stats */}
-      <div className="section-outer">
+      <div className="section-outer" style={{ position: 'relative' }}>
+        <ARVRScene />
         <div className="section">
           <div className="about-split" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
             <div>
@@ -119,7 +121,8 @@ export default function AboutPage() {
       </div>
 
       {/* Core values */}
-      <div style={{ background: 'var(--bg)' }}>
+      <div className="section-outer" style={{ position: 'relative' }}>
+        <ARVRScene />
         <div className="section">
           <span className="section-label">What We Stand For</span>
           <h2 className="section-title" style={{ marginBottom: 56 }}>Our Core Values</h2>
@@ -138,7 +141,8 @@ export default function AboutPage() {
       </div>
 
       {/* Timeline */}
-      <div className="section-outer">
+      <div className="section-outer" style={{ position: 'relative' }}>
+        <ARVRScene />
         <div className="section">
           <span className="section-label">Our Journey</span>
           <h2 className="section-title" style={{ marginBottom: 56 }}>From Idea to<br />Production Platform</h2>
@@ -165,7 +169,8 @@ export default function AboutPage() {
       </div>
 
       {/* Team */}
-      <div style={{ background: 'var(--bg)' }}>
+      <div className="section-outer" style={{ position: 'relative' }}>
+        <ARVRScene />
         <div className="section">
           <span className="section-label">The Team</span>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 20, marginBottom: 56 }}>
@@ -191,14 +196,16 @@ export default function AboutPage() {
           background: 'var(--black)', borderRadius: 24, padding: '64px 56px',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           flexWrap: 'wrap', gap: 32,
+          position: 'relative', overflow: 'hidden'
         }}>
-          <div>
+          <ARVRScene />
+          <div style={{ position: 'relative', zIndex: 1 }}>
             <div style={{ fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#555', marginBottom: 14 }}>Work With Us</div>
             <div className="cta-dark-strip-title" style={{ fontWeight: 800, fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', letterSpacing: '-0.03em', color: 'white', lineHeight: 1.1 }}>
               Ready to build something<br />that actually works?
             </div>
           </div>
-          <div className="cta-dark-strip-btns" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+          <div className="cta-dark-strip-btns" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', position: 'relative', zIndex: 1 }}>
             <button
               onClick={() => navigate('/contact')}
               style={{ background: 'white', color: 'var(--black)', border: 'none', fontFamily: 'var(--font)', fontSize: '0.95rem', fontWeight: 700, padding: '14px 32px', borderRadius: 100, cursor: 'pointer' }}

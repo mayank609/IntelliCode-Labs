@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import PageHero from '../components/PageHero'
+import ARVRScene from '../components/ARVRScene'
 
 const services = [
   'AI Testing & Evaluation',
@@ -72,8 +73,9 @@ export default function ContactPage() {
       />
 
       {/* Contact form + info */}
-      <div className="contact-section" style={{ paddingTop: 80 }}>
-        <div className="contact-inner">
+      <div className="contact-section" style={{ paddingTop: 80, position: 'relative', overflow: 'hidden' }}>
+        <ARVRScene />
+        <div className="contact-inner" style={{ position: 'relative', zIndex: 3 }}>
           {/* Left */}
           <div className="contact-left">
             <span className="section-label">Get In Touch</span>
@@ -182,8 +184,9 @@ export default function ContactPage() {
       </div>
 
       {/* FAQ */}
-      <div style={{ background: 'var(--bg)', padding: '100px 40px' }} className="faq-section">
-        <div style={{ maxWidth: 800, margin: '0 auto' }}>
+      <div style={{ background: 'var(--bg)', padding: '100px 40px', position: 'relative', overflow: 'hidden' }} className="faq-section">
+        <ARVRScene />
+        <div style={{ maxWidth: 800, margin: '0 auto', position: 'relative', zIndex: 3 }}>
           <span className="section-label">Common Questions</span>
           <h2 className="section-title" style={{ marginBottom: 48 }}>FAQ</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -193,9 +196,10 @@ export default function ContactPage() {
                 style={{
                   background: 'var(--white)', borderRadius: 16, overflow: 'hidden',
                   border: '1px solid rgba(0,0,0,0.05)',
+                  position: 'relative', zIndex: 4
                 }}
               >
-                <button
+...                <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   style={{
                     width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center',

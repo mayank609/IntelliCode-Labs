@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 const navLinks = [
   { label: 'About', path: '/about' },
@@ -32,11 +33,17 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={isScrolled ? 'scrolled' : ''} style={{
-        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        background: isScrolled ? 'rgba(19, 50, 79, 0.95)' : 'rgba(19, 50, 79, 0.88)',
-        boxShadow: isScrolled ? '0 4px 30px rgba(0, 0, 0, 0.1)' : 'none',
-      }}>
+      <motion.nav 
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className={isScrolled ? 'scrolled' : ''} 
+        style={{
+          transition: 'background 0.3s, box-shadow 0.3s',
+          background: isScrolled ? 'rgba(19, 50, 79, 0.95)' : 'rgba(19, 50, 79, 0.88)',
+          boxShadow: isScrolled ? '0 4px 30px rgba(0, 0, 0, 0.1)' : 'none',
+        }}
+      >
         <div className="nav-inner" style={{ 
           height: isScrolled ? '64px' : '72px',
           transition: 'height 0.3s cubic-bezier(0.4, 0, 0.2, 1)' 
@@ -48,19 +55,33 @@ export default function Navbar() {
             }} />
           </Link>
           <div className="nav-links">
-            {navLinks.map(l => (
-              <Link
+            {navLinks.map((l, i) => (
+              <motion.div
                 key={l.path}
-                to={l.path}
-                className={pathname === l.path || pathname.startsWith(l.path + '/') ? 'active' : ''}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1 + i * 0.1 }}
               >
-                {l.label}
-              </Link>
+                <Link
+                  to={l.path}
+                  className={pathname === l.path || pathname.startsWith(l.path + '/') ? 'active' : ''}
+                >
+                  {l.label}
+                </Link>
+              </motion.div>
             ))}
           </div>
-          <button className="nav-cta" onClick={() => navigate('/contact')}>
+          <motion.button 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: 0.6 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="nav-cta" 
+            onClick={() => navigate('/contact')}
+          >
             Get A Demo
-          </button>
+          </motion.button>
           <div className="nav-hamburger" onClick={() => setMenuOpen(!menuOpen)}>
             <span style={{ transform: menuOpen ? 'rotate(45deg) translate(5px, 5px)' : '' }} />
             <span style={{ opacity: menuOpen ? 0 : 1 }} />
@@ -73,7 +94,7 @@ export default function Navbar() {
             boxShadow: '0 0 10px rgba(72, 183, 255, 0.5)'
           }} />
         </div>
-      </nav>
+      </motion.nav>
 
       {menuOpen && (
         <div className="mobile-menu" style={{ display: 'flex' }}>
