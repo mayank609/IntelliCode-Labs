@@ -48,6 +48,41 @@ interface FormData {
   message: string
 }
 
+const offices = [
+  {
+    country: 'United States',
+    name: 'Headquarters',
+    city: 'Alpharetta, GA',
+    address: '5865, North Point Pkwy, Suite 250, Alpharetta, GA 30022',
+    mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.672462319088!2d-84.281878!3d34.052234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f575646f901235%3A0xc3f84860b77761!2s5865%20North%20Point%20Pkwy%20%23250%2C%20Alpharetta%2C%20GA%2030022!5e0!3m2!1sen!2sus!4v1714742400000!5m2!1sen!2sus',
+    dirUrl: 'https://www.google.com/maps/dir//5865+North+Point+Pkwy+Suite+250,+Alpharetta,+GA+30022',
+  },
+  {
+    country: 'Canada',
+    name: 'VPC Partners Inc',
+    city: 'Stoney Creek, ON',
+    address: '9A Glenhollow Drive, Stoney Creek, ON L8J 3T9',
+    mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2906.666!2d-79.789!3d43.123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDPCsDA3JzIyLjgiTiA3OcKwNDcnMjAuNCJX!5e0!3m2!1sen!2sca!4v1714742400000!5m2!1sen!2sca',
+    dirUrl: 'https://www.google.com/maps/dir//9A+Glenhollow+Drive,+Stoney+Creek,+ON+L8J+3T9',
+  },
+  {
+    country: 'India',
+    name: 'India H.Q',
+    city: 'Hyderabad',
+    address: '2nd Floor, Trendz Avenue, Plot No.-12, Madhapur, Hyderabad, 500081',
+    mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.123!2d78.389!3d17.445!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTfCsDI2JzQyLjAiTiA3OMKwMjMnMjAuNCJF!5e0!3m2!1sen!2sin!4v1714742400000!5m2!1sen!2sin',
+    dirUrl: 'https://www.google.com/maps/dir//Trendz+Avenue,+Madhapur,+Hyderabad,+500081',
+  },
+  {
+    country: 'India',
+    name: 'Delivery Office',
+    city: 'Delhi',
+    address: 'A-11, Ramesh Enclave, Opp. RK Plaza, Rohini, Delhi 110086',
+    mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3498.123!2d77.089!3d28.723!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDQzJzIyLjgiTiA3N8KwMDUnMjAuNCJF!5e0!3m2!1sen!2sin!4v1714742400000!5m2!1sen!2sin',
+    dirUrl: 'https://www.google.com/maps/dir//A-11,+Ramesh+Enclave,+Rohini,+Delhi+110086',
+  },
+]
+
 export default function ContactPage() {
   const [form, setForm] = useState<FormData>({ name: '', email: '', company: '', service: '', message: '' })
   const [submitting, setSubmitting] = useState(false)
@@ -220,6 +255,61 @@ export default function ContactPage() {
                     {faq.a}
                   </div>
                 )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Global Offices */}
+      <div className="section-outer" style={{ position: 'relative', background: 'var(--white)' }}>
+        <ARVRScene />
+        <div className="section" style={{ position: 'relative', zIndex: 3 }}>
+          <span className="section-label">Our Presence</span>
+          <h2 className="section-title" style={{ marginBottom: 56 }}>Global Offices</h2>
+          
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24 }}>
+            {offices.map((office, i) => (
+              <div key={i} className="prod-card" style={{ padding: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ height: 200, width: '100%', background: '#eee' }}>
+                  <iframe
+                    src={office.mapUrl}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen={false}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title={office.name}
+                  />
+                </div>
+                <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
+                    <span className="prod-badge" style={{ background: 'var(--bg)', color: 'var(--accent)' }}>{office.country}</span>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--gray-1)' }}>{office.city}</span>
+                  </div>
+                  <div className="prod-title" style={{ fontSize: '1.1rem', marginBottom: 8 }}>{office.name}</div>
+                  <div className="prod-desc" style={{ fontSize: '0.85rem', lineHeight: 1.5, marginBottom: 20 }}>{office.address}</div>
+                  <div style={{ marginTop: 'auto' }}>
+                    <a
+                      href={office.dirUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'inline-flex', alignItems: 'center', gap: 8,
+                        fontSize: '0.85rem', fontWeight: 700, color: 'var(--accent)',
+                        textDecoration: 'none', transition: 'gap 0.2s'
+                      }}
+                      onMouseOver={e => (e.currentTarget.style.gap = '12px')}
+                      onMouseOut={e => (e.currentTarget.style.gap = '8px')}
+                    >
+                      Get Directions
+                      <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <path d="M17 8l4 4m0 0l-4 4m4-4H3" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

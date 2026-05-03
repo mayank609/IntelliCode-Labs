@@ -13,12 +13,12 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 768)
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 1024)
   const { pathname } = useLocation()
   const navigate = useNavigate()
 
   useEffect(() => {
-    const mq = window.matchMedia('(max-width: 768px)')
+    const mq = window.matchMedia('(max-width: 1024px)')
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
     mq.addEventListener('change', handler)
     setIsMobile(mq.matches)
@@ -40,6 +40,15 @@ export default function Navbar() {
     setMenuOpen(false)
   }, [pathname])
 
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
+
   return (
     <>
       <motion.nav 
@@ -55,12 +64,10 @@ export default function Navbar() {
       >
         <div className="nav-inner" style={{
           height: isMobile ? '60px' : (isScrolled ? '64px' : '72px'),
-          transition: 'height 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
         }}>
           <Link to="/" className="nav-logo">
             <img src="/intellicode-logo-transparent.png" alt="Intellicode Labs logo" className="nav-logo-main" style={{
               height: isMobile ? '40px' : (isScrolled ? '48px' : '58px'),
-              transition: 'height 0.3s ease'
             }} />
           </Link>
           <div className="nav-links">

@@ -102,7 +102,7 @@ export default function AboutPage() {
               </div>
 
               {/* Domains */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+              <div className="values-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                 {[
                   ['Healthcare', 'HIPAA-compliant AI'],
                   ['Logistics', 'Real-time decisioning'],
