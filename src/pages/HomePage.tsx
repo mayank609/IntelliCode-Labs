@@ -26,13 +26,8 @@ const products = [
 function CtaStrip() {
   const navigate = useNavigate()
   return (
-    <div style={{ padding: '0 40px 120px' }}>
-      <div style={{
-        maxWidth: 1280, margin: '0 auto',
-        background: 'var(--black)', borderRadius: 24, padding: '64px 56px',
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        flexWrap: 'wrap', gap: 32,
-      }} className="cta-dark-strip">
+    <div className="cta-strip-container">
+      <div className="cta-dark-strip">
         <div>
           <div style={{ fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#555', marginBottom: 14 }}>
             Get Started
@@ -41,7 +36,7 @@ function CtaStrip() {
             The Future of Enterprise<br />AI Is Already Here.
           </div>
         </div>
-        <div className="cta-dark-strip-btns" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', flexShrink: 0 }}>
+        <div className="cta-dark-strip-btns">
           <button
             onClick={() => navigate('/contact')}
             style={{

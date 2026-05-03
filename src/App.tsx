@@ -12,6 +12,13 @@ import ServicesPage from './pages/ServicesPage'
 import ProductsPage from './pages/ProductsPage'
 import IndustriesPage from './pages/IndustriesPage'
 import ContactPage from './pages/ContactPage'
+import CareersPage from './pages/CareersPage'
+import BlogPage from './pages/BlogPage'
+import CaseStudiesPage from './pages/CaseStudiesPage'
+import PrivacyPage from './pages/PrivacyPage'
+import TermsPage from './pages/TermsPage'
+import SecurityPage from './pages/SecurityPage'
+import NotFoundPage from './pages/NotFoundPage'
 
 function AppContent() {
   const [isLoading, setIsLoading] = useState(true)
@@ -57,7 +64,13 @@ function AppContent() {
               <Route path="/products" element={<ProductsPage />} />
               <Route path="/industries" element={<IndustriesPage />} />
               <Route path="/contact" element={<ContactPage />} />
-              <Route path="*" element={<HomePage />} />
+              <Route path="/careers" element={<CareersPage />} />
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/case-studies" element={<CaseStudiesPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
+              <Route path="/terms" element={<TermsPage />} />
+              <Route path="/security" element={<SecurityPage />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </motion.div>
         </AnimatePresence>

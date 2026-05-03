@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const navLinks = [
   { label: 'About', path: '/about' },
@@ -13,8 +13,17 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 768)
   const { pathname } = useLocation()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)')
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    mq.addEventListener('change', handler)
+    setIsMobile(mq.matches)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,13 +53,13 @@ export default function Navbar() {
           boxShadow: isScrolled ? '0 4px 30px rgba(0, 0, 0, 0.1)' : 'none',
         }}
       >
-        <div className="nav-inner" style={{ 
-          height: isScrolled ? '64px' : '72px',
-          transition: 'height 0.3s cubic-bezier(0.4, 0, 0.2, 1)' 
+        <div className="nav-inner" style={{
+          height: isMobile ? '60px' : (isScrolled ? '64px' : '72px'),
+          transition: 'height 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
         }}>
           <Link to="/" className="nav-logo">
             <img src="/intellicode-logo-transparent.png" alt="Intellicode Labs logo" className="nav-logo-main" style={{
-              height: isScrolled ? '48px' : '58px',
+              height: isMobile ? '40px' : (isScrolled ? '48px' : '58px'),
               transition: 'height 0.3s ease'
             }} />
           </Link>
@@ -96,23 +105,32 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
-      {menuOpen && (
-        <div className="mobile-menu" style={{ display: 'flex' }}>
-          <Link to="/" className={pathname === '/' ? 'active' : ''}>Home</Link>
-          {navLinks.map(l => (
-            <Link
-              key={l.path}
-              to={l.path}
-              className={pathname === l.path ? 'active' : ''}
-            >
-              {l.label}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="mobile-menu" 
+            style={{ display: 'flex' }}
+          >
+            <Link to="/" className={pathname === '/' ? 'active' : ''}>Home</Link>
+            {navLinks.map(l => (
+              <Link
+                key={l.path}
+                to={l.path}
+                className={pathname === l.path ? 'active' : ''}
+              >
+                {l.label}
+              </Link>
+            ))}
+            <Link to="/contact" className="btn-primary" style={{ marginTop: 8 }}>
+              Get A Demo
             </Link>
-          ))}
-          <Link to="/contact" className="btn-primary" style={{ marginTop: 8 }}>
-            Get A Demo
-          </Link>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }

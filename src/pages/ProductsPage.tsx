@@ -67,6 +67,7 @@ export default function ProductsPage() {
           {products.map((p, i) => (
             <div
               key={p.title}
+              id={p.title.toLowerCase().replace(/\s+/g, '-')}
               style={{
                 display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center',
                 marginBottom: i < products.length - 1 ? 100 : 0,

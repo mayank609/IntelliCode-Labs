@@ -1,31 +1,54 @@
 import Icon from './ui/Icon'
 import { motion } from 'framer-motion'
+import { Link, useNavigate } from 'react-router-dom'
 
 const footerCols = [
   {
     title: 'Platform',
-    links: ['TestMind', 'AgentForge', 'PromptOps Suite', 'VoicePilot'],
+    links: [
+      { label: 'TestMind', path: '/products#testmind-platform' },
+      { label: 'AgentForge', path: '/products#agentforge' },
+      { label: 'PromptOps Suite', path: '/products#promptops-suite' },
+      { label: 'VoicePilot', path: '/products#voicepilot' },
+    ],
   },
   {
     title: 'Solutions',
-    links: ['Healthcare Insurance', 'Logistics', 'Contact Center', 'Custom AI Builds'],
+    links: [
+      { label: 'Healthcare Insurance', path: '/industries#healthcare' },
+      { label: 'Logistics', path: '/industries#logistics' },
+      { label: 'Contact Center', path: '/industries#contact-center' },
+      { label: 'Custom AI Builds', path: '/services' },
+    ],
   },
   {
     title: 'Company',
-    links: ['About Us', 'Careers', 'Blog', 'Case Studies'],
+    links: [
+      { label: 'About Us', path: '/about' },
+      { label: 'Careers', path: '/careers' },
+      { label: 'Blog', path: '/blog' },
+      { label: 'Case Studies', path: '/case-studies' },
+    ],
   },
   {
-    title: 'Contact',
-    links: ['hello@intellicodelabs.com', 'Book A Demo', 'LinkedIn', 'Twitter / X'],
+    title: 'Legal',
+    links: [
+      { label: 'Privacy Policy', path: '/privacy' },
+      { label: 'Terms Of Use', path: '/terms' },
+      { label: 'Security', path: '/security' },
+    ],
   },
 ]
 
-const scrollTo = (id: string) => {
-  const el = document.getElementById(id)
-  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' })
-}
-
 export default function Footer() {
+  const navigate = useNavigate()
+
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id)
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' })
+    else navigate('/contact')
+  }
+
   return (
     <footer style={{ position: 'relative' }}>
       <div style={{
@@ -47,12 +70,12 @@ export default function Footer() {
             transition={{ duration: 0.6 }}
             style={{ gridColumn: '1 / -1', maxWidth: '400px', marginBottom: '16px' }}
           >
-            <div className="footer-brand-name">
+            <Link to="/" className="footer-brand-name" style={{ textDecoration: 'none' }}>
               <img src="/intellicode-logo-transparent.png" alt="Intellicode Labs logo" className="footer-logo-main" />
               <span className="brand-wordmark">
                 INTELLICODE <span className="brand-wordmark-accent">LABS</span>
               </span>
-            </div>
+            </Link>
             <div className="footer-brand-desc">
               An AI-first professional services firm building specialized systems for healthcare, logistics, and contact center engineering.
             </div>
@@ -67,10 +90,14 @@ export default function Footer() {
             </div>
 
             <div className="footer-socials">
-              {(['twitter', 'linkedin', 'mail'] as const).map(s => (
-                <div key={s} className="footer-social">
-                  <Icon name={s} size={16} stroke="#666" />
-                </div>
+              {[
+                { name: 'twitter', url: 'https://twitter.com/intellicodelabs' },
+                { name: 'linkedin', url: 'https://linkedin.com/company/intellicodelabs' },
+                { name: 'mail', url: 'mailto:hello@intellicodelabs.com' }
+              ].map(s => (
+                <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer" className="footer-social">
+                  <Icon name={s.name as any} size={16} stroke="#666" />
+                </a>
               ))}
             </div>
           </motion.div>
@@ -86,17 +113,39 @@ export default function Footer() {
               <div className="footer-col-title">{col.title}</div>
               <div className="footer-links">
                 {col.links.map(l => (
-                  <a
-                    key={l}
-                    href="#"
-                    onClick={e => { e.preventDefault(); if (l === 'Book A Demo') scrollTo('contact') }}
+                  <Link
+                    key={l.label}
+                    to={l.path}
+                    onClick={() => {
+                      if (l.path.includes('#')) {
+                        const [path, hash] = l.path.split('#')
+                        if (window.location.pathname === path) {
+                          scrollTo(hash)
+                        }
+                      }
+                    }}
                   >
-                    {l}
-                  </a>
+                    {l.label}
+                  </Link>
                 ))}
               </div>
             </motion.div>
           ))}
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <div className="footer-col-title">Contact</div>
+            <div className="footer-links">
+              <a href="mailto:hello@intellicodelabs.com">hello@intellicodelabs.com</a>
+              <Link to="/contact">Book A Demo</Link>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter / X</a>
+            </div>
+          </motion.div>
         </div>
 
         <motion.div 
@@ -109,9 +158,9 @@ export default function Footer() {
           <div className="footer-copy">© 2026 IntelliCodeLabs. All Rights Reserved.</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
             <div className="footer-legal">
-              <a href="#">Privacy Policy</a>
-              <a href="#">Terms Of Use</a>
-              <a href="#">Security</a>
+              <Link to="/privacy">Privacy Policy</Link>
+              <Link to="/terms">Terms Of Use</Link>
+              <Link to="/security">Security</Link>
             </div>
           </div>
         </motion.div>

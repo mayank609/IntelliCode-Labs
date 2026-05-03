@@ -1,16 +1,27 @@
 import { useRef, useMemo, useState, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Points, PointMaterial, Preload, AdaptiveDpr } from '@react-three/drei';
 
-function Particles(props: any) {
+function SceneContent() {
+  const { size } = useThree();
+  const isMobile = size.width < 768;
+
+  return (
+    <>
+      <GridBox isMobile={isMobile} />
+      <Particles isMobile={isMobile} />
+    </>
+  );
+}
+
+function Particles({ isMobile }: { isMobile: boolean }) {
   const ref = useRef<any>();
   
-  // Memoize particle positions to avoid re-generation
   const sphere = useMemo(() => {
-    const count = 3000; // Reduced from 5000 for better performance
+    const count = isMobile ? 1200 : 3000;
     const positions = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      const r = 1.5 * Math.pow(Math.random(), 1 / 3);
+      const r = (isMobile ? 1.2 : 1.5) * Math.pow(Math.random(), 1 / 3);
       const theta = Math.random() * 2 * Math.PI;
       const phi = Math.acos(2 * Math.random() - 1);
       positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
@@ -18,14 +29,13 @@ function Particles(props: any) {
       positions[i * 3 + 2] = r * Math.cos(phi);
     }
     return positions;
-  }, []);
+  }, [isMobile]);
 
   useFrame((state, delta) => {
     if (ref.current) {
       ref.current.rotation.x -= delta / 15;
       ref.current.rotation.y -= delta / 20;
       
-      // Smoother parallax
       const targetX = (state.mouse.x * state.viewport.width) / 60;
       const targetY = (state.mouse.y * state.viewport.height) / 60;
       ref.current.position.x += (targetX - ref.current.position.x) * 0.05;
@@ -35,11 +45,11 @@ function Particles(props: any) {
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={sphere} stride={3} frustumCulled={false} {...props}>
+      <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
           color="#4a6cf7"
-          size={0.007}
+          size={isMobile ? 0.012 : 0.007}
           sizeAttenuation={true}
           depthWrite={false}
           opacity={0.4}
@@ -49,7 +59,7 @@ function Particles(props: any) {
   );
 }
 
-function GridBox() {
+function GridBox({ isMobile }: { isMobile: boolean }) {
   const ref = useRef<any>();
   
   useFrame((state) => {
@@ -65,7 +75,7 @@ function GridBox() {
   });
 
   return (
-    <mesh ref={ref} scale={2.5}>
+    <mesh ref={ref} scale={isMobile ? 1.8 : 2.5}>
       <icosahedronGeometry args={[1, 1]} />
       <meshBasicMaterial color="#52b89a" wireframe={true} transparent opacity={0.15} />
     </mesh>
@@ -81,7 +91,7 @@ export default function ARVRScene() {
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0, rootMargin: '100px' } // Load slightly before coming into view
+      { threshold: 0, rootMargin: '200px' }
     );
 
     if (containerRef.current) {
@@ -103,23 +113,22 @@ export default function ARVRScene() {
         zIndex: 2, 
         pointerEvents: 'none',
         opacity: isVisible ? 1 : 0,
-        transition: 'opacity 0.6s ease'
+        transition: 'opacity 0.8s ease'
       }}
     >
       {isVisible && (
         <Canvas 
-          camera={{ position: [0, 0, 3] }}
-          dpr={[1, 1.5]} // Limit DPR for performance
+          camera={{ position: [0, 0, 3], fov: 75 }}
+          dpr={[1, 2]}
           gl={{ 
-            antialias: false, // Save GPU
+            antialias: false,
             powerPreference: "low-power",
             alpha: true
           }}
           style={{ background: 'transparent' }}
         >
           <AdaptiveDpr pixelated />
-          <GridBox />
-          <Particles />
+          <SceneContent />
           <Preload all />
         </Canvas>
       )}
