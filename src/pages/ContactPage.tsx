@@ -87,16 +87,31 @@ export default function ContactPage() {
   const [form, setForm] = useState<FormData>({ name: '', email: '', company: '', service: '', message: '' })
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [formError, setFormError] = useState('')
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitting(true)
-    setTimeout(() => { setSubmitting(false); setSuccess(true) }, 1400)
+    setFormError('')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Failed to send message')
+      setSuccess(true)
+    } catch (err: any) {
+      setFormError(err.message)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -173,6 +188,11 @@ export default function ContactPage() {
               <>
                 <div className="form-title">Tell Us About Your Project</div>
                 <div className="form-subtitle">Fill in the details and we'll come back within one business day.</div>
+                {formError && (
+                  <div style={{ background: 'rgba(220,38,38,0.08)', border: '1px solid rgba(220,38,38,0.25)', borderRadius: 10, padding: '12px 16px', marginBottom: 16, fontSize: '0.85rem', color: '#ef4444' }}>
+                    {formError}
+                  </div>
+                )}
                 <form onSubmit={handleSubmit}>
                   <div className="form-row">
                     <div className="form-group">

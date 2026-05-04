@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
@@ -19,10 +19,13 @@ import PrivacyPage from './pages/PrivacyPage'
 import TermsPage from './pages/TermsPage'
 import SecurityPage from './pages/SecurityPage'
 import NotFoundPage from './pages/NotFoundPage'
+import AdminLoginPage from './pages/AdminLoginPage'
+import AdminDashboard from './pages/AdminDashboard'
 
 function AppContent() {
   const [isLoading, setIsLoading] = useState(true)
   const location = useLocation()
+  const isAdmin = location.pathname.startsWith('/admin')
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 220)
@@ -30,6 +33,7 @@ function AppContent() {
   }, [])
 
   useEffect(() => {
+    if (isAdmin) return
     const lenis = new Lenis()
 
     function raf(time: number) {
@@ -42,7 +46,20 @@ function AppContent() {
     return () => {
       lenis.destroy()
     }
-  }, [])
+  }, [isAdmin])
+
+  if (isAdmin) {
+    return (
+      <>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        </Routes>
+      </>
+    )
+  }
 
   return (
     <>
