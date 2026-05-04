@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const express = require('express')
 const cors = require('cors')
+const { connect } = require('./db')
 const contactRouter = require('./routes/contact')
 const adminRouter = require('./routes/admin')
 
@@ -20,7 +21,14 @@ app.use('/api/admin', adminRouter)
 
 app.use((_req, res) => res.status(404).json({ error: 'Not found' }))
 
-app.listen(PORT, () => {
-  console.log(`\n  IntelliCodeLabs backend →  http://localhost:${PORT}`)
-  console.log(`  Health check             →  http://localhost:${PORT}/api/health\n`)
-})
+connect()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`\n  IntelliCodeLabs backend →  http://localhost:${PORT}`)
+      console.log(`  Health check             →  http://localhost:${PORT}/api/health\n`)
+    })
+  })
+  .catch(err => {
+    console.error('  MongoDB connection failed:', err.message)
+    process.exit(1)
+  })
