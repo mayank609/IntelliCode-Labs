@@ -234,7 +234,7 @@ export default function ContactPage() {
                   position: 'relative', zIndex: 4
                 }}
               >
-...                <button
+                <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   style={{
                     width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center',

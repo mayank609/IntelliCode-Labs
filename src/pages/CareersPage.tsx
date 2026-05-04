@@ -24,6 +24,34 @@ const positions = [
     type: 'Full-time',
     desc: 'Work on the visual designer for AgentForge. Experience with React, Three.js, and complex state management needed.',
   },
+  {
+    title: 'Principal Product Manager, AI Platform',
+    team: 'Product',
+    location: 'Remote (US / Canada)',
+    type: 'Full-time',
+    desc: 'Own the roadmap for TestMind and PromptOps Suite. You\'ll work directly with enterprise clients and our engineering team to ship AI tooling that matters.',
+  },
+  {
+    title: 'MLOps / DevOps Engineer',
+    team: 'Engineering',
+    location: 'Remote / Hyderabad',
+    type: 'Full-time',
+    desc: 'Own the infrastructure that runs our AI pipelines in production. Experience with Kubernetes, cloud platforms (AWS/GCP/Azure), and CI/CD for ML required.',
+  },
+  {
+    title: 'Enterprise Sales Engineer',
+    team: 'Sales',
+    location: 'Remote (US)',
+    type: 'Full-time',
+    desc: 'Partner with enterprise prospects to scope AI solutions and demonstrate value. You should be comfortable deep in technical details one moment and in an exec briefing the next.',
+  },
+  {
+    title: 'AI Evaluation & Red Team Researcher',
+    team: 'Research',
+    location: 'Remote',
+    type: 'Full-time',
+    desc: 'Design adversarial evaluation strategies for LLM systems in high-stakes domains. You\'ll find the failure modes before our clients do.',
+  },
 ]
 
 export default function CareersPage() {

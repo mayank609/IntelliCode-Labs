@@ -27,6 +27,46 @@ const posts = [
     desc: 'Stop using spreadsheets for prompt management. Why version control and A/B testing are essential for production AI.',
     image: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=800&q=80',
   },
+  {
+    title: 'Building HIPAA-Compliant LLM Systems: A Practical Guide',
+    category: 'Healthcare',
+    date: 'March 31, 2026',
+    author: 'Laura Pinto',
+    desc: 'What it actually takes to ship AI in healthcare — BAAs, PHI handling, audit trails, and the guardrails that keep you compliant.',
+    image: 'https://images.unsplash.com/photo-1504868584819-f8e90526354c?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    title: 'The True Cost of LLM Hallucinations in Production',
+    category: 'Engineering',
+    date: 'March 18, 2026',
+    author: 'Marcus Chen',
+    desc: 'Hallucinations aren\'t just annoying — in claims adjudication or freight dispatch, they have real financial consequences. Here\'s how we measure and mitigate them.',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    title: 'From Legacy IVR to Conversational Voice AI: A Migration Playbook',
+    category: 'Product',
+    date: 'March 5, 2026',
+    author: 'Derek Kumar',
+    desc: 'Replacing an IVR without disrupting 50,000 daily calls is hard. Here\'s the phased rollout strategy that keeps containment rates high and customer complaints low.',
+    image: 'https://images.unsplash.com/photo-1534536281715-e28d76689b4d?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    title: 'AgentForge 2.0: Lessons from 50+ Agentic AI Deployments',
+    category: 'Product',
+    date: 'February 20, 2026',
+    author: 'Sana Rahman',
+    desc: 'After shipping agentic AI in healthcare and logistics for two years, here\'s what we got wrong the first time — and how AgentForge 2.0 fixes it.',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    title: 'Freight Intelligence: How Predictive ETA Cuts SLA Breaches by 40%',
+    category: 'Logistics',
+    date: 'February 6, 2026',
+    author: 'Marcus Chen',
+    desc: 'Our ML model for ETA prediction — how we trained it on historical load data, how we handle exceptions, and the dispatch agent it feeds into.',
+    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80',
+  },
 ]
 
 export default function BlogPage() {
