@@ -7,6 +7,8 @@ const navLinks = [
   { label: 'Services', path: '/services' },
   { label: 'Products', path: '/products' },
   { label: 'Industries', path: '/industries' },
+  { label: 'Case Studies', path: '/case-studies' },
+  { label: 'Blog', path: '/blog' },
 ]
 
 export default function Navbar() {
