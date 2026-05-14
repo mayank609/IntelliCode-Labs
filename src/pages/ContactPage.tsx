@@ -197,17 +197,17 @@ export default function ContactPage() {
                   <div className="form-row">
                     <div className="form-group">
                       <label className="form-label" htmlFor="name">Full Name *</label>
-                      <input id="name" name="name" type="text" className="form-input" placeholder="Jane Smith" required value={form.name} onChange={handleChange} />
+                      <input id="name" name="name" type="text" className="form-input" placeholder="" required value={form.name} onChange={handleChange} />
                     </div>
                     <div className="form-group">
                       <label className="form-label" htmlFor="email">Work Email *</label>
-                      <input id="email" name="email" type="email" className="form-input" placeholder="jane@company.com" required value={form.email} onChange={handleChange} />
+                      <input id="email" name="email" type="email" className="form-input" placeholder="" required value={form.email} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="form-row">
                     <div className="form-group">
                       <label className="form-label" htmlFor="company">Company</label>
-                      <input id="company" name="company" type="text" className="form-input" placeholder="Acme Corp" value={form.company} onChange={handleChange} />
+                      <input id="company" name="company" type="text" className="form-input" placeholder="" value={form.company} onChange={handleChange} />
                     </div>
                     <div className="form-group">
                       <label className="form-label" htmlFor="service">Area of Interest</label>
@@ -219,7 +219,7 @@ export default function ContactPage() {
                   </div>
                   <div className="form-group">
                     <label className="form-label" htmlFor="message">Describe Your Challenge *</label>
-                    <textarea id="message" name="message" className="form-textarea" placeholder="What workflow are you trying to improve? What does success look like?" required value={form.message} onChange={handleChange} />
+                    <textarea id="message" name="message" className="form-textarea" placeholder="" required value={form.message} onChange={handleChange} />
                   </div>
                   <button type="submit" className="form-submit" disabled={submitting}>
                     {submitting ? (

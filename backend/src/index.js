@@ -17,6 +17,12 @@ app.use(express.json())
 
 app.get('/api/health', (_req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }))
 app.use('/api/contact', contactRouter)
+const subscribeRouter = require('./routes/subscribe')
+app.use('/api/subscribe', subscribeRouter)
+const contentRouter = require('./routes/content')
+const adminContentRouter = require('./routes/adminContent')
+app.use('/api/content', contentRouter)
+app.use('/api/admin/content', adminContentRouter)
 app.use('/api/admin', adminRouter)
 
 app.use((_req, res) => res.status(404).json({ error: 'Not found' }))

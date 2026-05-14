@@ -67,7 +67,14 @@ export default function Navbar() {
         <div className="nav-inner" style={{
           height: isMobile ? '60px' : (isScrolled ? '64px' : '72px'),
         }}>
-          <Link to="/" className="nav-logo">
+          <Link
+            to="/"
+            className="nav-logo"
+            onClick={() => {
+              document.documentElement.scrollTop = 0
+              document.body.scrollTop = 0
+            }}
+          >
             <img src="/intellicode-logo-transparent.png" alt="Intellicode Labs logo" className="nav-logo-main" style={{
               height: isMobile ? '40px' : (isScrolled ? '48px' : '58px'),
             }} />

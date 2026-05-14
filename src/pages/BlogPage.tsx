@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import PageHero from '../components/PageHero'
 import ARVRScene from '../components/ARVRScene'
 import { useNavigate } from 'react-router-dom'
@@ -71,6 +72,32 @@ const posts = [
 
 export default function BlogPage() {
   const navigate = useNavigate()
+  const [email, setEmail] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
+  const [error, setError] = useState('')
+
+  const handleSubscribe = async () => {
+    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+    if (!valid) {
+      setError('Please enter a valid email address.')
+      return
+    }
+    setError('')
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim() }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Failed to subscribe')
+      setSubscribed(true)
+      setEmail('')
+    } catch (err: any) {
+      setError(err.message)
+    }
+  }
+
   return (
     <>
       <PageHero
@@ -123,15 +150,29 @@ export default function BlogPage() {
               Get our technical<br />insights in your inbox.
             </div>
           </div>
-          <div className="cta-dark-strip-btns" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', position: 'relative', zIndex: 1 }}>
-            <input 
-              type="email" 
-              placeholder="Your work email" 
-              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 100, padding: '14px 24px', color: 'white', width: 280, fontFamily: 'var(--font)' }}
-            />
-            <button onClick={() => navigate('/contact')} style={{ background: 'white', color: 'var(--black)', border: 'none', fontFamily: 'var(--font)', fontSize: '0.95rem', fontWeight: 700, padding: '14px 32px', borderRadius: 100, cursor: 'pointer' }}>
-              Subscribe
-            </button>
+          <div className="cta-dark-strip-btns" style={{ display: 'flex', flexDirection: 'column', gap: 10, position: 'relative', zIndex: 3 }}>
+            {subscribed ? (
+              <div style={{ color: '#7dffb3', fontWeight: 700, fontSize: '1rem', padding: '14px 0' }}>
+                ✓ You're subscribed! We'll be in touch.
+              </div>
+            ) : (
+              <>
+                <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                  <input
+                    type="email"
+                    placeholder="Your work email"
+                    value={email}
+                    onChange={e => { setEmail(e.target.value); setError('') }}
+                    onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
+                    style={{ background: 'rgba(255,255,255,0.05)', border: `1px solid ${error ? '#ff6b6b' : 'rgba(255,255,255,0.1)'}`, borderRadius: 100, padding: '14px 24px', color: 'white', width: 280, fontFamily: 'var(--font)', outline: 'none' }}
+                  />
+                  <button onClick={handleSubscribe} style={{ background: 'white', color: 'var(--black)', border: 'none', fontFamily: 'var(--font)', fontSize: '0.95rem', fontWeight: 700, padding: '14px 32px', borderRadius: 100, cursor: 'pointer' }}>
+                    Subscribe
+                  </button>
+                </div>
+                {error && <div style={{ color: '#ff6b6b', fontSize: '0.8rem', paddingLeft: 20 }}>{error}</div>}
+              </>
+            )}
           </div>
         </div>
       </div>

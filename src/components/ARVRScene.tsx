@@ -125,7 +125,7 @@ export default function ARVRScene() {
             powerPreference: "low-power",
             alpha: true
           }}
-          style={{ background: 'transparent' }}
+          style={{ background: 'transparent', pointerEvents: 'none' }}
         >
           <AdaptiveDpr pixelated />
           <SceneContent />

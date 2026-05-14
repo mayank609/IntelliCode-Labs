@@ -21,7 +21,11 @@ export default function AdminLoginPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       })
-      const data = await res.json()
+      if (!res.ok && res.status === 500 && res.headers.get('content-length') === '0') {
+        throw new Error('Backend server is not running. Start it with: cd backend && npm run dev')
+      }
+      let data: any = {}
+      try { data = await res.json() } catch { throw new Error('Server unreachable — is the backend running on port 3001?') }
       if (!res.ok) throw new Error(data.error || 'Login failed')
       localStorage.setItem('admin_token', data.token)
       localStorage.setItem('admin_username', data.username)
@@ -34,8 +38,8 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div style={{
-      minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
+    <div id="admin-root" style={{
+      minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'auto',
       background: '#0a1628', fontFamily: 'var(--font)',
     }}>
       {/* Background grid */}

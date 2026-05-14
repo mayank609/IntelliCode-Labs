@@ -104,21 +104,21 @@ export default function Testimonials() {
               <div className="testi-quote">"{t.quote}"</div>
               
               {t.metricValue && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: 16, margin: '16px 0', paddingTop: 12, borderTop: '1px solid rgba(0,0,0,0.08)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, paddingTop: 8, borderTop: '1px solid rgba(0,0,0,0.08)' }}>
                   <div>
-                    <div style={{ fontSize: '0.7rem', color: '#999', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    <div style={{ fontSize: '0.62rem', color: '#999', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       {t.metricLabel}
                     </div>
-                    <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--accent)', marginTop: 4 }}>
+                    <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--accent)', marginTop: 2 }}>
                       {t.metricValue}%
                     </div>
                   </div>
-                  <Donut 
+                  <Donut
                     data={[
                       { v: t.metricValue, color: 'var(--accent)' },
                       { v: 100 - t.metricValue, color: '#e0e0e8' },
-                    ]} 
-                    size={70} 
+                    ]}
+                    size={52}
                   />
                 </div>
               )}
