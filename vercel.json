@@ -1,12 +1,9 @@
 {
   "buildCommand": "npm run build",
-  "devCommand": "vite",
   "installCommand": "npm install",
   "framework": "vite",
   "outputDirectory": "dist",
-  "env": {},
   "regions": ["iad1"],
-  "public": true,
   "headers": [
     {
       "source": "/assets/(.*)",
@@ -19,6 +16,10 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
