@@ -13,9 +13,14 @@ function createApp() {
     .split(',')
     .map(o => o.trim())
 
+  const isDevOrigin = (origin) =>
+    /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)
+
   app.use(cors({
     origin: (origin, cb) => {
-      if (!origin || allowedOrigins.some(o => origin.startsWith(o))) return cb(null, true)
+      if (!origin) return cb(null, true)
+      if (allowedOrigins.some(o => origin.startsWith(o))) return cb(null, true)
+      if (process.env.NODE_ENV !== 'production' && isDevOrigin(origin)) return cb(null, true)
       cb(new Error('Not allowed by CORS'))
     },
     credentials: true,

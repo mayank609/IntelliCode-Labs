@@ -179,9 +179,8 @@ export default function AboutPage() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 20 }}>
             {team.map(t => (
-              <div key={t.name} style={{ background: 'var(--white)', borderRadius: 20, padding: '28px 24px', boxShadow: 'var(--shadow-card)', border: '1px solid rgba(0,0,0,0.04)', textAlign: 'center' }}>
+              <div key={t.initials} style={{ background: 'var(--white)', borderRadius: 20, padding: '28px 24px', boxShadow: 'var(--shadow-card)', border: '1px solid rgba(0,0,0,0.04)', textAlign: 'center' }}>
                 <div style={{ width: 64, height: 64, borderRadius: '50%', background: t.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', fontWeight: 800, fontSize: '1.1rem', color: 'var(--black)' }}>{t.initials}</div>
-                <div style={{ fontWeight: 700, fontSize: '0.95rem', marginBottom: 4 }}>{t.name}</div>
                 <div style={{ fontSize: '0.78rem', color: 'var(--gray-1)', lineHeight: 1.4 }}>{t.role}</div>
               </div>
             ))}

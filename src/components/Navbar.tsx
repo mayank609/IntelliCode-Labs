@@ -9,6 +9,7 @@ const navLinks = [
   { label: 'Industries', path: '/industries' },
   { label: 'Case Studies', path: '/case-studies' },
   { label: 'Blog', path: '/blog' },
+  { label: 'Careers', path: '/careers' },
 ]
 
 export default function Navbar() {

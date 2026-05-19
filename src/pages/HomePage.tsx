@@ -1,4 +1,5 @@
 import Hero from '../components/Hero'
+import AITalentDialog from '../components/AITalentDialog'
 import Ticker from '../components/Ticker'
 import Highlights from '../components/Highlights'
 import Testimonials from '../components/Testimonials'
@@ -13,6 +14,7 @@ import CTA from '../components/CTA'
 export default function HomePage() {
   return (
     <div className="home-page">
+      <AITalentDialog />
       <Hero />
       <TechMarquee />
       <Ticker />
